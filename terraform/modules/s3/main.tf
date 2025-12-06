@@ -1,31 +1,28 @@
 resource "aws_s3_bucket" "this" {
+  count  = var.create_bucket ? 1 : 0
   bucket = var.bucket_name
 
   tags = merge(
     var.tags,
     {
-      Environment = var.env
+      Environment = var.env_name
       ManagedBy   = "Terraform"
     }
   )
 }
 
-# Versioning (optional)
 resource "aws_s3_bucket_versioning" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  count = var.versioning ? 1 : 0
+  count  = var.create_bucket && var.versioning ? 1 : 0
+  bucket = aws_s3_bucket.this[0].id
 
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-# Server-side encryption (optional)
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  count = var.sse ? 1 : 0
+  count  = var.create_bucket && var.sse ? 1 : 0
+  bucket = aws_s3_bucket.this[0].id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -34,11 +31,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   }
 }
 
-# Public access block (optional)
 resource "aws_s3_bucket_public_access_block" "this" {
-  bucket = aws_s3_bucket.this.id
-
   count = var.public_access_block ? 1 : 0
+  bucket = aws_s3_bucket.this.id
 
   block_public_acls       = true
   block_public_policy     = true
