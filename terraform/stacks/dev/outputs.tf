@@ -1,9 +1,7 @@
 output "bucket_id" {
-  value       = module.my_bucket.id
-  description = "ID of the S3 bucket"
+  value = module.my_bucket.bucket_id
 }
 
 output "bucket_arn" {
-  value       = module.my_bucket.arn
-  description = "ARN of the S3 bucket"
+  value = module.my_bucket.bucket_arn
 }

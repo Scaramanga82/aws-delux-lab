@@ -1,12 +1,24 @@
 module "my_bucket" {
-  source        = "git::https://github.com/babenkov/terraform-aws-s3.git?ref=vX.Y.Z"
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "5.9.0"
 
-  name          = "${var.env_name}-${var.owner}-bucket"
-  create_bucket = var.deploy_s3
+  bucket = "${var.env_name}-milos-projekat-bucket"
+  acl    = "private"
 
-  versioning    = false       # možeš uključiti po potrebi
-  sse           = true        # server-side encryption
+  versioning = {
+    enabled = false
+  }
+
+  server_side_encryption_configuration = {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
   tags = {
+    Project     = "Milos-Projekat"
     Environment = var.env_name
   }
 }
