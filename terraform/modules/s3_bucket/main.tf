@@ -10,18 +10,22 @@ resource "aws_s3_bucket" "this" {
   )
 }
 
+# Versioning (optional)
 resource "aws_s3_bucket_versioning" "this" {
-  count  = var.versioning ? 1 : 0
   bucket = aws_s3_bucket.this.id
 
+  count = var.versioning ? 1 : 0
+
   versioning_configuration {
-    status = var.versioning ? "Enabled" : "Suspended"
+    status = "Enabled"
   }
 }
 
+# Server-side encryption (optional)
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
-  count  = var.sse ? 1 : 0
   bucket = aws_s3_bucket.this.id
+
+  count = var.sse ? 1 : 0
 
   rule {
     apply_server_side_encryption_by_default {
@@ -30,8 +34,11 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   }
 }
 
+# Public access block (optional)
 resource "aws_s3_bucket_public_access_block" "this" {
   bucket = aws_s3_bucket.this.id
+
+  count = var.public_access_block ? 1 : 0
 
   block_public_acls       = true
   block_public_policy     = true
