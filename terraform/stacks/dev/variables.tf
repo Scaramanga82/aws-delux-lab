@@ -1,5 +1,11 @@
-variable "env" {
-  default = "dev"
+variable "env_name" {
+  description = "Environment name"
+  type        = string
+}
+
+variable "owner" {
+  description = "Owner name"
+  type        = string
 }
 
 variable "aws_region" {
