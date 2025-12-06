@@ -1,12 +1,12 @@
 module "my_bucket" {
-  count       = var.deploy_s3 ? 1 : 0
-  source      = "../../modules/s3"
-  env_name = var.env_name
-  bucket_name = "${var.env_name}-${var.owner}-bucket"
-  versioning  = true
-  sse         = true
-  public_access_block = true
+  source        = "git::https://github.com/babenkov/terraform-aws-s3.git?ref=vX.Y.Z"
+
+  name          = "${var.env_name}-${var.owner}-bucket"
+  create_bucket = var.deploy_s3
+
+  versioning    = false       # možeš uključiti po potrebi
+  sse           = true        # server-side encryption
   tags = {
-    Project = "DevOps-Infra"
+    Environment = var.env_name
   }
 }
