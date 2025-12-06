@@ -58,7 +58,7 @@ jobs:
         working-directory: ${{ env.STACK_DIR }}
         run: |
           terraform plan \
-              -var-file="${{ env.TF_VAR_FILE }}" \
+              -var-file="../../env-config/${ENVIRONMENT}.tfvars" \
               -out=plan-${ENVIRONMENT}.tfplan \
               -no-color
 
