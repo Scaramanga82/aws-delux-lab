@@ -10,12 +10,9 @@ module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
   version = "4.0.0"
 
-#   providers = {
-#     aws = aws.default
-#   }
-
   user_pool_name      = "${var.project_name}-userpool-${var.env_name}"
   deletion_protection = "INACTIVE"
+  user_pool_tier      = "ESSENTIALS"
 
   ##########################################################
   # Alias and verification attributes
@@ -61,7 +58,7 @@ module "cognito" {
   ##########################################################
 
   user_pool_add_ons = {
-    advanced_security_mode = "ENFORCED"
+    advanced_security_mode = "AUDIT"
   }
 
   ##########################################################

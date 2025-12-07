@@ -4,7 +4,6 @@
 
 # Primary provider (eu-west-2 London)
 provider "aws" {
-  # alias  = "default"
   region = var.aws_region
 
   default_tags {
