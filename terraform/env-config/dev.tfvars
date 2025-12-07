@@ -8,12 +8,11 @@ project_name  = "delux"
 domain_name   = "kanazir.link"
 domain_prefix = "dev"
 
-
 ##########################################################
 # Cognito Configuration
 ##########################################################
 
-cognito_user_pool_tier                = "PLUS"
+cognito_user_pool_tier                = "ESSENTIALS"
 cognito_advanced_security_mode        = "AUDIT"
 cognito_mfa_configuration             = "OPTIONAL"
 cognito_refresh_token_validity_days   = 5

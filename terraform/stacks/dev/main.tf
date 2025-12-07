@@ -2,7 +2,7 @@
 # AWS Providers
 ##########################################################
 
-# Primary provider (eu-west-2 London)
+# Default provider (eu-west-2 London)
 provider "aws" {
   region = var.aws_region
 
@@ -15,7 +15,7 @@ provider "aws" {
   }
 }
 
-# Provider for us-east-1 (required for ACM certificate for CloudFront)
+# Provider for us-east-1 (required for ACM certificate for CloudFront - future use)
 provider "aws" {
   alias  = "us_east_1"
   region = "us-east-1"

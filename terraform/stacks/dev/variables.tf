@@ -33,6 +33,28 @@ variable "domain_prefix" {
 # Cognito variables
 ##########################################################
 
+variable "cognito_user_pool_tier" {
+  description = "Cognito User Pool tier (ESSENTIALS or PLUS)"
+  type        = string
+  default     = "ESSENTIALS"
+
+  validation {
+    condition     = contains(["ESSENTIALS", "PLUS"], var.cognito_user_pool_tier)
+    error_message = "Tier must be ESSENTIALS or PLUS."
+  }
+}
+
+variable "cognito_advanced_security_mode" {
+  description = "Advanced security mode (OFF, AUDIT, ENFORCED). ENFORCED requires PLUS tier."
+  type        = string
+  default     = "AUDIT"
+
+  validation {
+    condition     = contains(["OFF", "AUDIT", "ENFORCED"], var.cognito_advanced_security_mode)
+    error_message = "Security mode must be OFF, AUDIT, or ENFORCED."
+  }
+}
+
 variable "cognito_mfa_configuration" {
   description = "MFA configuration (OFF, ON, OPTIONAL)"
   type        = string
