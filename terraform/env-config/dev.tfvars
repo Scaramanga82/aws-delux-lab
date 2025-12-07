@@ -13,6 +13,8 @@ domain_prefix = "dev"
 # Cognito Configuration
 ##########################################################
 
+cognito_user_pool_tier                = "PLUS"
+cognito_advanced_security_mode        = "AUDIT"
 cognito_mfa_configuration             = "OPTIONAL"
 cognito_refresh_token_validity_days   = 5
 cognito_access_token_validity_minutes = 60

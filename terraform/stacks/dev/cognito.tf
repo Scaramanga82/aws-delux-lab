@@ -12,7 +12,6 @@ module "cognito" {
 
   user_pool_name      = "${var.project_name}-userpool-${var.env_name}"
   deletion_protection = "INACTIVE"
-  user_pool_tier      = "ESSENTIALS"
 
   ##########################################################
   # Alias and verification attributes
