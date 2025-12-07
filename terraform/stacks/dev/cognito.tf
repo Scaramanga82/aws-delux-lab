@@ -70,11 +70,11 @@ module "cognito" {
 
   clients = [
     {
-      name                          = "${var.project_name}-app-client-${var.env_name}"
-      generate_secret               = false
-      refresh_token_validity        = var.cognito_refresh_token_validity_days
-      access_token_validity         = var.cognito_access_token_validity_minutes
-      id_token_validity             = var.cognito_id_token_validity_minutes
+      name                   = "${var.project_name}-app-client-${var.env_name}"
+      generate_secret        = false
+      refresh_token_validity = var.cognito_refresh_token_validity_days
+      access_token_validity  = var.cognito_access_token_validity_minutes
+      id_token_validity      = var.cognito_id_token_validity_minutes
 
       token_validity_units = {
         access_token  = "minutes"
@@ -98,13 +98,13 @@ module "cognito" {
       ]
 
       allowed_oauth_flows                  = ["code"]
-      allowed_oauth_scopes                 = ["openid","email","profile"]
+      allowed_oauth_scopes                 = ["openid", "email", "profile"]
       allowed_oauth_flows_user_pool_client = true
       supported_identity_providers         = ["COGNITO"]
       enable_token_revocation              = true
       prevent_user_existence_errors        = "ENABLED"
-      read_attributes                      = ["email","email_verified","preferred_username"]
-      write_attributes                     = ["email","preferred_username"]
+      read_attributes                      = ["email", "email_verified", "preferred_username"]
+      write_attributes                     = ["email", "preferred_username"]
     }
   ]
 
