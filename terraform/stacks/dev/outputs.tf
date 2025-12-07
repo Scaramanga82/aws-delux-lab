@@ -21,27 +21,27 @@
 #   value       = module.s3_bucket.s3_bucket_bucket_domain_name
 # }
 
-##########################################################
-# Cognito User Pool Outputs
-##########################################################
+# ##########################################################
+# # Cognito User Pool Outputs
+# ##########################################################
 
-output "cognito_user_pool_id" {
-  description = "Cognito User Pool ID"
-  value       = module.cognito.id
-}
+# output "cognito_user_pool_id" {
+#   description = "Cognito User Pool ID"
+#   value       = module.cognito.id
+# }
 
-output "cognito_user_pool_arn" {
-  description = "Cognito User Pool ARN"
-  value       = module.cognito.arn
-}
+# output "cognito_user_pool_arn" {
+#   description = "Cognito User Pool ARN"
+#   value       = module.cognito.arn
+# }
 
-output "cognito_client_id" {
-  description = "Cognito App Client ID"
-  value       = module.cognito.client_ids[0]
-  sensitive   = true
-}
+# output "cognito_client_id" {
+#   description = "Cognito App Client ID"
+#   value       = module.cognito.client_ids[0]
+#   sensitive   = true
+# }
 
-output "auth_url" {
-  description = "Cognito Hosted UI URL (manual domain configuration)"
-  value       = "https://${var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"}"
-}
+# output "auth_url" {
+#   description = "Cognito Hosted UI URL (manual domain configuration)"
+#   value       = "https://${var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"}"
+# }
