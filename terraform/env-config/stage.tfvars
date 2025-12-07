@@ -1,2 +1,2 @@
-aws_region         = "eu-central-1"
+aws_region         = "eu-west-2"
 env_name           = "prod"

@@ -1,5 +1,5 @@
 bucket       = "kanazir-tf-state"
 key          = "dev/terraform.tfstate"
-region       = "eu-central-1"
+region       = "eu-west-2"
 encrypt      = true
 use_lockfile = true
