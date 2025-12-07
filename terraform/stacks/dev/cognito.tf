@@ -9,7 +9,7 @@ locals {
 
 module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
-  version = "~> 0.24"
+  version = "4.0.0"
 
   user_pool_name = "${var.project_name}-userpool-${var.env_name}"
 
