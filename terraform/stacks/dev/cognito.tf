@@ -12,7 +12,7 @@ module "cognito" {
   version = "4.0.0"
 
   user_pool_name      = "${var.project_name}-userpool-${var.env_name}"
-  deletion_protection = false
+  deletion_protection = "INACTIVE"
 
   ##########################################################
   # Alias and verification attributes
