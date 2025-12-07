@@ -11,10 +11,6 @@ module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
   version = "4.0.0"
 
-  providers = {
-    aws = aws.default  # Primarni region za Cognito user pool
-  }
-
   user_pool_name      = "${var.project_name}-userpool-${var.env_name}"
   deletion_protection = false
 
