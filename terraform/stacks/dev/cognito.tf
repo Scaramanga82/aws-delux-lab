@@ -15,6 +15,13 @@ module "cognito" {
   user_pool_tier      = var.cognito_user_pool_tier
 
   ##########################################################
+  # Admin create user config
+  ##########################################################
+  admin_create_user_config = {
+    allow_admin_create_user_only = false
+  }
+
+  ##########################################################
   # Alias and verification attributes
   ##########################################################
 
