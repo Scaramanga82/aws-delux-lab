@@ -2,7 +2,6 @@
 # Cognito User Pool
 ##########################################################
 
-# Local variable for callback/logout URLs with proper domain prefix
 locals {
   cdn_domain = var.domain_prefix != "" ? "cdn.${var.domain_prefix}.${var.domain_name}" : "cdn.${var.domain_name}"
 }
@@ -10,6 +9,10 @@ locals {
 module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
   version = "4.0.0"
+
+  providers = {
+    aws = aws.default
+  }
 
   user_pool_name      = "${var.project_name}-userpool-${var.env_name}"
   deletion_protection = "INACTIVE"

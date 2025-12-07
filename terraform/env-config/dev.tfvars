@@ -6,7 +6,6 @@ aws_region   = "eu-west-2"
 env_name     = "dev"
 project_name = "delux"
 domain_name  = "kanazir.link"
-domain_prefix = "dev"
 
 ##########################################################
 # Cognito Configuration

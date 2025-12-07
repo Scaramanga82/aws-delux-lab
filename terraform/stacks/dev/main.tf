@@ -4,6 +4,7 @@
 
 # Primary provider (eu-west-2 London)
 provider "aws" {
+  alias  = "default"
   region = var.aws_region
 
   default_tags {
@@ -26,28 +27,5 @@ provider "aws" {
       Project     = var.project_name
       ManagedBy   = "Terraform"
     }
-  }
-}
-
-##########################################################
-# ACM Certificate (us-east-1 - CloudFront requirement)
-# Ručna DNS validacija preporučena
-##########################################################
-
-resource "aws_acm_certificate" "cloudfront" {
-  provider          = aws.us_east_1
-  domain_name       = var.domain_name
-  validation_method = "DNS"
-
-  subject_alternative_names = [
-    "*.${var.domain_name}"
-  ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  tags = {
-    Name = "${var.project_name}-cert-${var.env_name}"
   }
 }
