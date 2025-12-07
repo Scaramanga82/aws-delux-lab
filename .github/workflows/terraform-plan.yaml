@@ -8,7 +8,7 @@ permissions:
 
 env:
   TF_ROOT: terraform
-  PLAN_BUCKET: kanazir-tf-plan
+  PLAN_BUCKET: delux-terraform-plan
 
 jobs:
   terraform-plan:

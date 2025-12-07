@@ -1,4 +1,4 @@
-bucket       = "kanazir-tf-state"
+bucket       = "delux-terraform-state"
 key          = "dev/terraform.tfstate"
 region       = "eu-west-2"
 encrypt      = true
