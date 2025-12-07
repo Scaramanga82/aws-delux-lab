@@ -134,22 +134,12 @@ resource "aws_cognito_user_pool_domain" "prefix" {
 }
 
 ##########################################################
-# Data source za ACM certifikat (već postoji u us-east-1)
-##########################################################
-
-data "aws_acm_certificate" "auth" {
-  provider = aws.us_east_1
-  domain   = var.domain_prefix != "" ? "*.${var.domain_prefix}.${var.domain_name}" : "*.${var.domain_name}"
-  statuses = ["ISSUED"]
-}
-
-##########################################################
 # Cognito Custom Domain
 ##########################################################
 
 resource "aws_cognito_user_pool_domain" "custom" {
   domain          = local.auth_domain
-  certificate_arn = data.aws_acm_certificate.auth.arn
+  certificate_arn = "arn:aws:acm:us-east-1:220027435491:certificate/38cd5bcd-5dd1-4aa5-a3f1-d09d2381f871"
   user_pool_id    = module.cognito.id
 
   depends_on = [module.cognito]
