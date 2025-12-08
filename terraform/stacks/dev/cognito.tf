@@ -23,10 +23,14 @@ module "cognito" {
   }
 
   ##########################################################
+  # Primari login identity
+  ##########################################################
+  username_attributes = ["email"]
+
+  ##########################################################
   # Alias and verification attributes
   ##########################################################
 
-  alias_attributes         = ["email", "preferred_username"]
   auto_verified_attributes = ["email"]
 
   ##########################################################
