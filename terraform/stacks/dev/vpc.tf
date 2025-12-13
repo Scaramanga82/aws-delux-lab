@@ -40,12 +40,10 @@ module "vpc" {
   }
 
   public_subnet_tags = {
-    Name = "${var.project_name}-${var.env_name}-public-%s"
     Type = "public"
   }
 
   private_subnet_tags = {
-    Name = "${var.project_name}-${var.env_name}-private-%s"
     Type = "private"
   }
 
