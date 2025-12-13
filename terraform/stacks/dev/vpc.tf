@@ -11,12 +11,12 @@ module "vpc" {
   
   public_subnet_names = [
     for az in var.availability_zones :
-    "${var.project_name}-${var.env_name}-public-${az}"
+    "${var.project_name}-${var.env_name}-public-subnet-${az}"
   ]
 
   private_subnet_names = [
     for az in var.availability_zones :
-    "${var.project_name}-${var.env_name}-private-${az}"
+    "${var.project_name}-${var.env_name}-private-subnet-${az}"
   ]
 
   enable_nat_gateway      = var.enable_nat_gateway
