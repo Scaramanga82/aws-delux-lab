@@ -9,7 +9,7 @@ resource "aws_secretsmanager_secret" "aurora_postgresql_secret" {
   recovery_window_in_days = var.env_name == "prod" ? 30 : 0
 
   tags = {
-    Name        = "${var.project_name}-${var.env_name}-aurora-postgresql"
+    Name        = "${var.project_name}-${var.env_name}-aurora-postgresql-secret"
     Project     = var.project_name
     Environment = var.env_name
     ManagedBy   = "Terraform"
