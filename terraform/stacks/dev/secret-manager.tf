@@ -1,10 +1,10 @@
 ##########################################################
-# Aurora PostgreSQL Secrets
+# Aurora PostgreSQL Secret
 ##########################################################
 
 resource "aws_secretsmanager_secret" "aurora_postgresql_secret" {
   name        = "${var.project_name}-${var.env_name}-aurora-postgresql"
-  description = "Aurora master credentials"
+  description = "Aurora postgresql secrets"
 
   recovery_window_in_days = var.env_name == "prod" ? 30 : 0
 
