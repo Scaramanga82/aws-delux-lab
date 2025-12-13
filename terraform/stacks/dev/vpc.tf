@@ -48,6 +48,10 @@ module "vpc" {
     Name = "${var.project_name}-${var.env_name}-nat"
   }
 
+  default_route_table_tags = {
+    Name = "${var.project_name}-${var.env_name}-main-rt"
+  }
+
   public_route_table_tags = {
     Name = "${var.project_name}-${var.env_name}-public-rt"
   }
