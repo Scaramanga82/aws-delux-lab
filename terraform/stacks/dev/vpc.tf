@@ -13,7 +13,6 @@ module "vpc" {
   single_nat_gateway      = var.single_nat_gateway
   enable_dns_hostnames    = var.enable_dns_hostnames
   enable_dns_support      = var.enable_dns_support
-  map_public_ip_on_launch = var.map_public_ip_on_launch
 
   # VPC Flow Logs
   enable_flow_log                      = false
@@ -31,4 +30,31 @@ module "vpc" {
   vpc_tags = {
     Name = "${var.project_name}-${var.env_name}-vpc"
   }
+
+  igw_tags = {
+    Name = "${var.project_name}-${var.env_name}-igw"
+  }
+
+  nat_gateway_tags = {
+    Name = "${var.project_name}-${var.env_name}-nat"
+  }
+
+  public_subnet_tags = {
+    Name = "${var.project_name}-${var.env_name}-public"
+    Type = "public"
+  }
+
+  private_subnet_tags = {
+    Name = "${var.project_name}-${var.env_name}-private"
+    Type = "private"
+  }
+
+  public_route_table_tags = {
+    Name = "${var.project_name}-${var.env_name}-public-rt"
+  }
+
+  private_route_table_tags = {
+    Name = "${var.project_name}-${var.env_name}-private-rt"
+  }
+
 }

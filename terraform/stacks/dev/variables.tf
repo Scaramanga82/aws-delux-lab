@@ -126,9 +126,3 @@ variable "enable_dns_support" {
   type        = bool
   default     = true
 }
-
-variable "map_public_ip_on_launch" {
-  description = "Enable public ip in public subnets in VPC"
-  type        = bool
-  default     = false
-}

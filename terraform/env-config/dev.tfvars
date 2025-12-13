@@ -46,4 +46,3 @@ public_subnets = [
 
 enable_nat_gateway      = true
 single_nat_gateway      = true
-map_public_ip_on_launch = false
