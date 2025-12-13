@@ -3,7 +3,7 @@
 ##########################################################
 
 resource "aws_security_group" "aurora_postgresql_sg" {
-  name_prefix = "${var.project_name}-${var.env_name}-aurora-postgresql-"
+  name        = "${var.project_name}-${var.env_name}-aurora-postgresql-sg"
   description = "Security group for Aurora PostgreSQL"
   vpc_id      = module.vpc.vpc_id
 
