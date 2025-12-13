@@ -19,15 +19,17 @@ resource "aws_security_group" "aurora_postgresql_sg" {
   }
 }
 
-# Ingress rules - allow PostgreSQL only from private subnets
-resource "aws_security_group_rule" "aurora_postgresql_private_subnets" {
-  for_each          = toset(module.vpc.private_subnet_cidrs)
-  type              = "ingress"
-  from_port         = 5432
-  to_port           = 5432
-  protocol          = "tcp"
-  cidr_blocks       = [each.value]
+# Ingress rules - Allow PostgreSQL only from private subnet CIDRs
+resource "aws_vpc_security_group_ingress_rule" "aurora_postgresql_private_subnets" {
+  for_each = toset(var.private_subnets)
+
   security_group_id = aws_security_group.aurora_postgresql_sg.id
+  description       = "Allow PostgreSQL from private subnets"
+
+  from_port   = 5432
+  to_port     = 5432
+  ip_protocol = "tcp"
+  cidr_ipv4   = each.value
 }
 
 output "aurora_postgresql_sg_id" {
