@@ -32,6 +32,10 @@ resource "aws_secretsmanager_secret_version" "aurora_postgresql_secret_version" 
 
 data "aws_secretsmanager_secret_version" "aurora_postgresql_current" {
   secret_id = aws_secretsmanager_secret.aurora_postgresql_secret.id
+
+  depends_on = [
+    aws_secretsmanager_secret_version.aurora_postgresql_secret_version
+  ]
 }
 
 locals {
