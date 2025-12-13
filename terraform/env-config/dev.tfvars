@@ -28,7 +28,8 @@ vpc_cidr = "10.0.0.0/16"
 
 availability_zones = [
   "eu-west-2a",
-  "eu-west-2b"
+  "eu-west-2b",
+  "eu-west-2c"
 ]
 
 private_subnets = [
