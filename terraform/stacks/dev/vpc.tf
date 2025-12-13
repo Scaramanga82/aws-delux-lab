@@ -9,10 +9,11 @@ module "vpc" {
   private_subnets = var.private_subnets
   public_subnets  = var.public_subnets
 
-  enable_nat_gateway   = var.enable_nat_gateway
-  single_nat_gateway   = var.single_nat_gateway
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support   = var.enable_dns_support
+  enable_nat_gateway      = var.enable_nat_gateway
+  single_nat_gateway      = var.single_nat_gateway
+  enable_dns_hostnames    = var.enable_dns_hostnames
+  enable_dns_support      = var.enable_dns_support
+  map_public_ip_on_launch = var.map_public_ip_on_launch
 
   # VPC Flow Logs
   enable_flow_log                      = false
@@ -24,8 +25,7 @@ module "vpc" {
       Environment = var.env_name
       Project     = var.project_name
       ManagedBy   = "Terraform"
-    },
-    var.tags
+    }
   )
 
   vpc_tags = {

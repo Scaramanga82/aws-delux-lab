@@ -127,8 +127,8 @@ variable "enable_dns_support" {
   default     = true
 }
 
-variable "tags" {
-  description = "Additional tags"
-  type        = map(string)
-  default     = {}
+variable "map_public_ip_on_launch" {
+  description = "Enable public ip in public subnets in VPC"
+  type        = bool
+  default     = false
 }
