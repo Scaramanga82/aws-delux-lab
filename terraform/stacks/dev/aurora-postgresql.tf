@@ -137,7 +137,7 @@ resource "aws_db_parameter_group" "aurora_postgresql_parameter_group" {
 
 resource "aws_rds_cluster_parameter_group" "aurora_postgresql_cluster_parameter_group" {
   name_prefix = "${var.project_name}-${var.env_name}-aurora-cluster-pg-"
-  family      = "aurora-postgresql15"
+  family      = "aurora-postgresql17"
   description = "Aurora PostgreSQL cluster parameter group for ${var.env_name}"
 
   parameter {
