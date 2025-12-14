@@ -30,6 +30,7 @@ resource "aws_vpc_security_group_ingress_rule" "rds_from_ecs" {
   referenced_security_group_id = aws_security_group.ecs_tasks.id
 }
 
+# Output - aurora postgresql sg id
 output "aurora_postgresql_sg_id" {
   description = "ID of Aurora PostgreSQL security group"
   value       = aws_security_group.aurora_postgresql_sg.id

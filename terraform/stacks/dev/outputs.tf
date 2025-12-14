@@ -222,3 +222,22 @@ output "api_url" {
   description = "API URL"
   value       = "https://api.dev.kanazir.link"
 }
+
+##########################################################
+# ECS Cluster Outputs
+##########################################################
+
+output "ecs_cluster_id" {
+  description = "ID of the ECS cluster"
+  value       = module.ecs_cluster.id
+}
+
+output "ecs_cluster_name" {
+  description = "Name of the ECS cluster"
+  value       = module.ecs_cluster.name
+}
+
+output "ecs_cluster_arn" {
+  description = "ARN of the ECS cluster"
+  value       = module.ecs_cluster.arn
+}
