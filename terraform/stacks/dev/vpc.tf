@@ -8,7 +8,7 @@ module "vpc" {
   azs             = var.availability_zones
   private_subnets = var.private_subnets
   public_subnets  = var.public_subnets
-  
+
   public_subnet_names = [
     for az in var.availability_zones :
     "${var.project_name}-${var.env_name}-public-subnet-${az}"
@@ -19,10 +19,10 @@ module "vpc" {
     "${var.project_name}-${var.env_name}-private-subnet-${az}"
   ]
 
-  enable_nat_gateway      = var.enable_nat_gateway
-  single_nat_gateway      = var.single_nat_gateway
-  enable_dns_hostnames    = var.enable_dns_hostnames
-  enable_dns_support      = var.enable_dns_support
+  enable_nat_gateway   = var.enable_nat_gateway
+  single_nat_gateway   = var.single_nat_gateway
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support   = var.enable_dns_support
 
   enable_flow_log                      = false
   create_flow_log_cloudwatch_iam_role  = false

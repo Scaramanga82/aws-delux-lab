@@ -45,14 +45,15 @@ module "aurora_postgresql_cluster" {
   storage_encrypted = true
 
   # Credentials from Secrets Manager
-  master_username = local.aurora_username
-  master_password = local.aurora_password
-  database_name   = local.aurora_dbname
+  master_username             = local.aurora_username
+  master_password             = local.aurora_password
+  database_name               = local.aurora_dbname
+  manage_master_user_password = false
 
   # Network configuration
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = aws_db_subnet_group.aurora_postgresql_subnet_group.name
-  
+
   # Security group
   vpc_security_group_ids = [aws_security_group.aurora_postgresql_sg.id]
 
@@ -72,8 +73,8 @@ module "aurora_postgresql_cluster" {
   preferred_maintenance_window = var.aurora_postgresql_maintenance_window
 
   # Monitoring
-  enabled_cloudwatch_logs_exports         = ["postgresql"]
-  create_cloudwatch_log_group             = true
+  enabled_cloudwatch_logs_exports        = ["postgresql"]
+  create_cloudwatch_log_group            = true
   cloudwatch_log_group_retention_in_days = 7
 
   # Performance Insights (disabled for dev)
@@ -140,7 +141,7 @@ resource "aws_rds_cluster_parameter_group" "aurora_postgresql_cluster_parameter_
 
   parameter {
     name  = "rds.force_ssl"
-    value = "0"  # Disabled for dev
+    value = "0" # Disabled for dev
   }
 
   parameter {
