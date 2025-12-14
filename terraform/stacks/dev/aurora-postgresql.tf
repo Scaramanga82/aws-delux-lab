@@ -140,16 +140,6 @@ resource "aws_rds_cluster_parameter_group" "aurora_postgresql_cluster_parameter_
   family      = "aurora-postgresql17"
   description = "Aurora PostgreSQL cluster parameter group for ${var.env_name}"
 
-  parameter {
-    name  = "rds.force_ssl"
-    value = "0" # Disabled for dev
-  }
-
-  parameter {
-    name  = "timezone"
-    value = "UTC"
-  }
-
   tags = {
     Name        = "${var.project_name}-${var.env_name}-aurora-cluster-pg"
     Project     = var.project_name
