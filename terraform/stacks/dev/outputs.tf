@@ -100,7 +100,10 @@
 #   sensitive = true
 # }
 
+##########################################################
 # VPC Outputs
+##########################################################
+
 output "vpc_id" {
   description = "The ID of the VPC"
   value       = module.vpc.vpc_id
@@ -139,4 +142,54 @@ output "private_subnet_cidrs" {
 output "public_subnet_cidrs" {
   description = "List of CIDR blocks of public subnets"
   value       = var.public_subnets
+}
+
+##########################################################
+# Aurora PostgreSQL Outputs
+##########################################################
+
+output "aurora_cluster_endpoint" {
+  description = "Aurora cluster writer endpoint"
+  value       = module.aurora_postgresql_cluster.cluster_endpoint
+}
+
+output "aurora_cluster_reader_endpoint" {
+  description = "Aurora cluster reader endpoint"
+  value       = module.aurora_postgresql_cluster.cluster_reader_endpoint
+}
+
+output "aurora_cluster_port" {
+  description = "Aurora cluster port"
+  value       = module.aurora_postgresql_cluster.cluster_port
+}
+
+output "aurora_cluster_id" {
+  description = "Aurora cluster identifier"
+  value       = module.aurora_postgresql_cluster.cluster_id
+}
+
+output "aurora_cluster_arn" {
+  description = "Aurora cluster ARN"
+  value       = module.aurora_postgresql_cluster.cluster_arn
+}
+
+output "aurora_database_name" {
+  description = "Aurora database name"
+  value       = local.aurora_dbname
+  sensitive   = true
+}
+
+output "aurora_master_username" {
+  description = "Aurora master username"
+  value       = local.aurora_username
+  sensitive   = true
+}
+
+output "aurora_connection_string" {
+  description = "Aurora connection information (for reference)"
+  value = {
+    database = local.aurora_dbname
+    username = local.aurora_username
+  }
+  sensitive = true
 }

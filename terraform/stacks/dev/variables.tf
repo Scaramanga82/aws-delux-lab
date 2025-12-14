@@ -126,3 +126,37 @@ variable "enable_dns_support" {
   type        = bool
   default     = true
 }
+
+##########################################################
+# Aurora PostgreSQL Variables
+##########################################################
+
+variable "aurora_postgresql_engine_version" {
+  description = "Aurora PostgreSQL engine version"
+  type        = string
+  default     = "17.4"
+}
+
+variable "aurora_postgresql_instance_class" {
+  description = "Aurora PostgreSQL instance class"
+  type        = string
+  default     = "db.t3.medium"
+}
+
+variable "aurora_postgresql_backup_retention_days" {
+  description = "Backup retention period in days"
+  type        = number
+  default     = 1
+}
+
+variable "aurora_postgresql_backup_window" {
+  description = "Preferred backup window"
+  type        = string
+  default     = "03:00-04:00"
+}
+
+variable "aurora_postgresql_maintenance_window" {
+  description = "Preferred maintenance window"
+  type        = string
+  default     = "sun:04:00-sun:05:00"
+}

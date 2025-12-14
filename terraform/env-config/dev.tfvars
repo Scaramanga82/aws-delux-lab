@@ -19,7 +19,6 @@ cognito_refresh_token_validity_days   = 5
 cognito_access_token_validity_minutes = 60
 cognito_id_token_validity_minutes     = 60
 
-
 ##########################################################
 # VPC Configuration
 ##########################################################
@@ -46,3 +45,13 @@ public_subnets = [
 
 enable_nat_gateway      = true
 single_nat_gateway      = true
+
+##########################################################
+# Aurora PostgreSQL Configuration
+##########################################################
+
+aurora_postgresql_engine_version        = "17.4"
+aurora_postgresql_instance_class        = "db.t3.medium"
+aurora_postgresql_backup_retention_days = 1
+aurora_postgresql_backup_window         = "03:00-04:00"
+aurora_postgresql_maintenance_window    = "sun:04:00-sun:05:00"
