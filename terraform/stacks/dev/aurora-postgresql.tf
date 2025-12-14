@@ -54,7 +54,7 @@ module "aurora_postgresql_cluster" {
   db_subnet_group_name = aws_db_subnet_group.aurora_postgresql_subnet_group.name
   
   # Security group
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  vpc_security_group_ids = [aws_security_group.aurora_postgresql_sg.id]
 
   # Instance configuration
   instance_class = var.aurora_postgresql_instance_class
