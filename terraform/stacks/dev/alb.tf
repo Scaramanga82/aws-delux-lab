@@ -25,6 +25,7 @@ module "alb" {
   name    = "${var.project_name}-${var.env_name}-alb"
   vpc_id  = module.vpc.vpc_id
   subnets = module.vpc.public_subnets
+  enable_deletion_protection = false
 
   # Security Group
   create_security_group = false
