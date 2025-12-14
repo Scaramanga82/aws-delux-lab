@@ -55,3 +55,14 @@ aurora_postgresql_instance_class        = "db.t3.medium"
 aurora_postgresql_backup_retention_days = 1
 aurora_postgresql_backup_window         = "03:00-04:00"
 aurora_postgresql_maintenance_window    = "sun:04:00-sun:05:00"
+
+##########################################################
+# ECS Configuration
+##########################################################
+
+ecs_container_port   = 80
+ecs_health_check_path = "/"
+ecs_cpu              = 256
+ecs_memory           = 512
+ecs_desired_count    = 1
+ecs_image            = "nginx:latest"

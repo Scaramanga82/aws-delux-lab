@@ -160,3 +160,43 @@ variable "aurora_postgresql_maintenance_window" {
   type        = string
   default     = "sun:04:00-sun:05:00"
 }
+
+##########################################################
+# ECS Variables
+##########################################################
+
+variable "ecs_container_port" {
+  description = "Port on which the container listens"
+  type        = number
+  default     = 80
+}
+
+variable "ecs_health_check_path" {
+  description = "Health check path for the application"
+  type        = string
+  default     = "/"
+}
+
+variable "ecs_cpu" {
+  description = "CPU units for ECS task"
+  type        = number
+  default     = 256
+}
+
+variable "ecs_memory" {
+  description = "Memory (MB) for ECS task"
+  type        = number
+  default     = 512
+}
+
+variable "ecs_desired_count" {
+  description = "Desired number of ECS tasks"
+  type        = number
+  default     = 1
+}
+
+variable "ecs_image" {
+  description = "Docker image for ECS task"
+  type        = string
+  default     = "nginx:latest"
+}

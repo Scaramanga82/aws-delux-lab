@@ -193,3 +193,37 @@ output "aurora_connection_string" {
   }
   sensitive = true
 }
+
+##########################################################
+# Application Load Balancer Outputs
+##########################################################
+
+output "alb_dns_name" {
+  description = "DNS name of the load balancer"
+  value       = module.alb.dns_name
+}
+
+output "alb_zone_id" {
+  description = "Zone ID of the load balancer"
+  value       = module.alb.zone_id
+}
+
+output "alb_arn" {
+  description = "ARN of the load balancer"
+  value       = module.alb.arn
+}
+
+output "alb_security_group_id" {
+  description = "Security Group ID used by ALB"
+  value       = aws_security_group.alb.id
+}
+
+output "target_group_arn" {
+  description = "ARN of the target group"
+  value       = module.alb.target_groups["ecs"].arn
+}
+
+output "api_url" {
+  description = "API URL"
+  value       = "https://api.dev.kanazir.link"
+}
