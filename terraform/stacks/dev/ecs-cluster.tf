@@ -6,21 +6,23 @@ module "ecs" {
   source  = "terraform-aws-modules/ecs/aws"
   version = "6.10.0"
 
-  cluster_name  = "${var.project_name}-${var.env_name}-ecs-cluster"
+  cluster_name = "${var.project_name}-${var.env_name}-ecs-cluster"
 
-  autoscaling_capacity_providers = ["FARGATE", "FARGATE_SPOT"]
+  # Fargate capacity providers
+  autoscaling_capacity_providers = {
+    FARGATE = {}
+    FARGATE_SPOT = {}
+  }
 
-  default_capacity_provider_strategy = [
-    {
-      capacity_provider = "FARGATE"
-      weight            = 1
-      base              = 1
-    },
-    {
-      capacity_provider = "FARGATE_SPOT"
-      weight            = 0
+  default_capacity_provider_strategy = {
+    FARGATE = {
+      base   = 1
+      weight = 1
     }
-  ]
+    FARGATE_SPOT = {
+      weight = 0
+    }
+  }
 
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-cluster"
@@ -29,6 +31,7 @@ module "ecs" {
     ManagedBy   = "Terraform"
   }
 }
+
 
 ##########################################################
 # CloudWatch Log Group
