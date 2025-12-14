@@ -55,6 +55,7 @@ module "aurora_postgresql_cluster" {
   db_subnet_group_name = aws_db_subnet_group.aurora_postgresql_subnet_group.name
 
   # Security group
+  create_security_group = false
   vpc_security_group_ids = [aws_security_group.aurora_postgresql_sg.id]
 
   # Instance configuration
@@ -105,7 +106,7 @@ module "aurora_postgresql_cluster" {
 
 resource "aws_db_parameter_group" "aurora_postgresql_parameter_group" {
   name_prefix = "${var.project_name}-${var.env_name}-aurora-pg-"
-  family      = "aurora-postgresql15"
+  family      = "aurora-postgresql17"
   description = "Aurora PostgreSQL parameter group for ${var.env_name}"
 
   parameter {
