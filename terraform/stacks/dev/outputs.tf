@@ -229,15 +229,15 @@ output "api_url" {
 
 output "ecs_cluster_id" {
   description = "ID of the ECS cluster"
-  value       = module.ecs_cluster.id
+  value       = module.ecs_cluster.cluster.id
 }
 
 output "ecs_cluster_name" {
   description = "Name of the ECS cluster"
-  value       = module.ecs_cluster.name
+  value       = module.ecs_cluster.cluster.name
 }
 
 output "ecs_cluster_arn" {
   description = "ARN of the ECS cluster"
-  value       = module.ecs_cluster.arn
+  value       = module.ecs_cluster.cluster.arn
 }
