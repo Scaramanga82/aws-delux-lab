@@ -246,17 +246,28 @@ output "ecs_cluster_arn" {
 # ECS Task Definition Outputs
 ##########################################################
 
+# output "ecs_service_id" {
+#   description = "ID of the ECS service"
+#   value       = module.ecs_service.id
+# }
+
+# output "ecs_service_name" {
+#   description = "Name of the ECS service"
+#   value       = module.ecs_service.name
+# }
+
+# output "ecs_task_definition_arn" {
+#   description = "ARN of the task definition"
+#   value       = module.ecs_service.task_definition_arn
+# }
 output "ecs_service_id" {
-  description = "ID of the ECS service"
-  value       = module.ecs_service.id
+  value = aws_ecs_service.app.id
 }
 
 output "ecs_service_name" {
-  description = "Name of the ECS service"
-  value       = module.ecs_service.name
+  value = aws_ecs_service.app.name
 }
 
 output "ecs_task_definition_arn" {
-  description = "ARN of the task definition"
-  value       = module.ecs_service.task_definition_arn
+  value = aws_ecs_task_definition.app.arn
 }
