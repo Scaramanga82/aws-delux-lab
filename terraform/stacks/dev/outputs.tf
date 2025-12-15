@@ -260,14 +260,18 @@ output "ecs_cluster_arn" {
 #   description = "ARN of the task definition"
 #   value       = module.ecs_service.task_definition_arn
 # }
-# output "ecs_service_id" {
-#   value = aws_ecs_service.app.id
-# }
+output "ecs_service_name" {
+  value = aws_ecs_service.app.name
+}
 
-# output "ecs_service_name" {
-#   value = aws_ecs_service.app.name
-# }
+output "ecs_service_id" {
+  value = aws_ecs_service.app.id
+}
 
-# output "ecs_task_definition_arn" {
-#   value = aws_ecs_task_definition.app.arn
-# }
+output "ecs_task_definition_arn" {
+  value = aws_ecs_task_definition.app.arn
+}
+
+output "ecs_log_group_name" {
+  value = aws_cloudwatch_log_group.ecs_app.name
+}
