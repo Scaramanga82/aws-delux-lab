@@ -13,29 +13,23 @@ module "ecs_service" {
   cpu    = var.ecs_cpu
   memory = var.ecs_memory
 
-  container_definitions = jsonencode([
-    {
-      name      = var.project_name
-      image     = var.ecs_image
+  # ✅ ISPRAVLJENO - Map format sa ispravnim port_mappings
+  container_definitions = {
+    (var.project_name) = {
       cpu       = var.ecs_cpu
       memory    = var.ecs_memory
       essential = true
+      image     = var.ecs_image
 
-      portMappings = [
+      enable_cloudwatch_logging = true
+      
+      port_mappings = [
         {
+          name          = var.project_name
           containerPort = var.ecs_container_port
           protocol      = "tcp"
         }
       ]
-
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
-          "awslogs-region"        = data.aws_region.current.id
-          "awslogs-stream-prefix" = "ecs"
-        }
-      }
 
       environment = [
         {
@@ -70,8 +64,10 @@ module "ecs_service" {
           valueFrom = "${aws_secretsmanager_secret.aurora_postgresql_secret.arn}:password::"
         }
       ]
+
+      readonly_root_filesystem = false
     }
-  ])
+  }
 
   # Service configuration
   service_connect_configuration = {
