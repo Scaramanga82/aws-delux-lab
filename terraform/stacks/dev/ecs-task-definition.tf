@@ -96,6 +96,7 @@ module "ecs_service" {
   subnet_ids = module.vpc.private_subnets
   
   #Security group
+  create_security_group = false
   security_group_ids = [aws_security_group.ecs_tasks.id]
 
   # IAM roles
