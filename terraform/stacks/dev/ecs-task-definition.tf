@@ -116,6 +116,8 @@ module "ecs_service" {
   force_new_deployment  = true
   wait_for_steady_state = false
 
+  enable_autoscaling = false
+
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-service"
     Project     = var.project_name
