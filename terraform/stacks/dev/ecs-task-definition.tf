@@ -1,29 +1,31 @@
 ##########################################################
-# ECS Task Definition & Service
+# ECS Task Definition
 ##########################################################
 
-module "ecs_service" {
-  source  = "terraform-aws-modules/ecs/aws//modules/service"
-  version = "6.10.0"
+resource "aws_ecs_task_definition" "app" {
+  family                   = "${var.project_name}-${var.env_name}-app"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = tostring(var.ecs_cpu)
+  memory                   = tostring(var.ecs_memory)
+  execution_role_arn       = aws_iam_role.ecs_task_execution.arn
+  task_role_arn            = aws_iam_role.ecs_task_app.arn
+  tags                     = {
+    Name        = "${var.project_name}-${var.env_name}-ecs-task"
+    Project     = var.project_name
+    Environment = var.env_name
+    ManagedBy   = "Terraform"
+  }
 
-  name        = "${var.project_name}-${var.env_name}-app"
-  cluster_arn = module.ecs_cluster.cluster_arn
-
-  # Fargate configuration
-  cpu    = var.ecs_cpu
-  memory = var.ecs_memory
-
-  # ✅ ISPRAVLJENO - Map format sa ispravnim port_mappings
-  container_definitions = {
-    (var.project_name) = {
+  container_definitions = jsonencode([
+    {
+      name      = var.project_name
+      image     = var.ecs_image
       cpu       = var.ecs_cpu
       memory    = var.ecs_memory
       essential = true
-      image     = var.ecs_image
 
-      enable_cloudwatch_logging = true
-      
-      port_mappings = [
+      portMappings = [
         {
           containerPort = var.ecs_container_port
           protocol      = "tcp"
@@ -64,51 +66,49 @@ module "ecs_service" {
         }
       ]
 
-      readonly_root_filesystem = false
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/aws/ecs/${var.project_name}-${var.env_name}-app/${var.project_name}"
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = "ecs"
+        }
+      }
+
+      readonlyRootFilesystem = false
     }
+  ])
+}
+
+##########################################################
+# ECS Service
+##########################################################
+
+resource "aws_ecs_service" "app" {
+  name            = "${var.project_name}-${var.env_name}-app"
+  cluster         = module.ecs_cluster.cluster_arn
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = var.ecs_desired_count
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets         = module.vpc.private_subnets
+    security_groups = [aws_security_group.ecs_tasks.id]
+    assign_public_ip = false
   }
 
-  # Service configuration
-  service_connect_configuration = {
-    enabled = false
-  }
-  
-  # Load balancer
-  load_balancer = {
-    service = {
-      target_group_arn = module.alb.target_groups["ecs"].arn
-      container_name   = var.project_name
-      container_port   = var.ecs_container_port
-    }
+  load_balancer {
+    target_group_arn = module.alb.target_groups["ecs"].arn
+    container_name   = var.project_name
+    container_port   = var.ecs_container_port
   }
 
-  # Network configuration
-  subnet_ids = module.vpc.private_subnets
-  
-  # Security group
-  create_security_group = false
-  security_group_ids    = [aws_security_group.ecs_tasks.id]
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 100
+  force_new_deployment               = true
+  wait_for_steady_state              = false
 
-  # IAM roles
-  tasks_iam_role_arn        = aws_iam_role.ecs_task_app.arn
-  task_exec_iam_role_arn    = aws_iam_role.ecs_task_execution.arn
-  create_task_exec_iam_role = false
-  create_tasks_iam_role     = false
-  create_task_definition    = true
-
-  # Service settings
-  desired_count                      = var.ecs_desired_count
-  deployment_minimum_healthy_percent = 50
-  deployment_maximum_percent         = 200
-  health_check_grace_period_seconds  = 60
-  
-  # Auto-scaling
-  enable_autoscaling = false
-  
-  # Force new deployment on changes
-  force_new_deployment  = true
-  wait_for_steady_state = false
-
+  enable_ecs_managed_tags = true
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-service"
     Project     = var.project_name
@@ -116,9 +116,3 @@ module "ecs_service" {
     ManagedBy   = "Terraform"
   }
 }
-
-##########################################################
-# Data source for current region
-##########################################################
-
-data "aws_region" "current" {}
