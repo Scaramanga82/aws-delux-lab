@@ -65,4 +65,4 @@ ecs_health_check_path = "/"
 ecs_cpu              = 256
 ecs_memory           = 512
 ecs_desired_count    = 1
-ecs_image            = "nginx:latest"
+ecs_image            = "220027435491.dkr.ecr.eu-west-2.amazonaws.com/kanazir-ecr:latest"
