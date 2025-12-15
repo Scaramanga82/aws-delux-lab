@@ -7,7 +7,7 @@ module "ecs_service" {
   version = "6.10.0"
 
   name        = "${var.project_name}-${var.env_name}-app"
-  cluster_arn = module.ecs_cluster.arn
+  cluster_arn = module.ecs_cluster.cluster_arn
 
   # Fargate configuration
   cpu    = var.ecs_cpu
@@ -35,7 +35,7 @@ module "ecs_service" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
-          "awslogs-region"        = data.aws_region.current.name
+          "awslogs-region"        = data.aws_region.current.id
           "awslogs-stream-prefix" = "app"
         }
       }
