@@ -81,7 +81,9 @@ module "ecs_service" {
   }
 
   # Service configuration
-  service_connect_configuration = {}
+  service_connect_configuration = {
+    enabled = false
+  }
   
   # Load balancer
   load_balancer = {
