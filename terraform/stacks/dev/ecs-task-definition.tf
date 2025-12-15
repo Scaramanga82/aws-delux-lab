@@ -7,23 +7,22 @@ module "ecs_service" {
   version = "6.10.0"
 
   name        = "${var.project_name}-${var.env_name}-app"
-  cluster_arn = module.ecs_cluster.cluster_arn  # proveri da modul vraća cluster_arn ili koristi .id
+  cluster_arn = module.ecs_cluster.cluster_arn
 
   # Fargate configuration
   cpu    = var.ecs_cpu
   memory = var.ecs_memory
 
-  # Container definition
-  container_definitions = [
-    {
-      name      = var.project_name
+  # ✅ ISPRAVLJENO - Map format sa ispravnim port_mappings
+  container_definitions = {
+    (var.project_name) = {
       cpu       = var.ecs_cpu
       memory    = var.ecs_memory
       essential = true
       image     = var.ecs_image
 
       enable_cloudwatch_logging = true
-
+      
       port_mappings = [
         {
           containerPort = var.ecs_container_port
@@ -67,13 +66,13 @@ module "ecs_service" {
 
       readonly_root_filesystem = false
     }
-  ]
+  }
 
-  # Service Connect
+  # Service configuration
   service_connect_configuration = {
     enabled = false
   }
-
+  
   # Load balancer
   load_balancer = {
     service = {
@@ -85,7 +84,7 @@ module "ecs_service" {
 
   # Network configuration
   subnet_ids = module.vpc.private_subnets
-
+  
   # Security group
   create_security_group = false
   security_group_ids    = [aws_security_group.ecs_tasks.id]
@@ -99,18 +98,17 @@ module "ecs_service" {
 
   # Service settings
   desired_count                      = var.ecs_desired_count
-  deployment_minimum_healthy_percent = 100
-  deployment_maximum_percent         = 100
+  deployment_minimum_healthy_percent = 50
+  deployment_maximum_percent         = 200
   health_check_grace_period_seconds  = 60
-
+  
   # Auto-scaling
   enable_autoscaling = false
-
+  
   # Force new deployment on changes
   force_new_deployment  = true
   wait_for_steady_state = false
 
-  # Tags
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-service"
     Project     = var.project_name
@@ -120,7 +118,7 @@ module "ecs_service" {
 }
 
 ##########################################################
-# Data source for current region (optional)
+# Data source for current region
 ##########################################################
 
 data "aws_region" "current" {}
