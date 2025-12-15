@@ -103,14 +103,30 @@ resource "aws_ecs_service" "app" {
     container_port   = var.ecs_container_port
   }
 
-  deployment_minimum_healthy_percent = 100
-  deployment_maximum_percent         = 100
+  deployment_minimum_healthy_percent = 50
+  deployment_maximum_percent         = 200
   force_new_deployment               = true
   wait_for_steady_state              = false
 
   enable_ecs_managed_tags = true
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-service"
+    Project     = var.project_name
+    Environment = var.env_name
+    ManagedBy   = "Terraform"
+  }
+}
+
+##########################################################
+# CloudWatch Log Group for ECS Tasks
+##########################################################
+
+resource "aws_cloudwatch_log_group" "ecs_app" {
+  name              = "/aws/ecs/${var.project_name}-${var.env_name}-app"
+  retention_in_days = 7
+
+  tags = {
+    Name        = "${var.project_name}-${var.env_name}-ecs-app-logs"
     Project     = var.project_name
     Environment = var.env_name
     ManagedBy   = "Terraform"
