@@ -8,17 +8,16 @@ module "ecs" {
 
   cluster_name  = "${var.project_name}-${var.env_name}-ecs-cluster"
 
-  default_capacity_provider_strategy = [
-    {
-      capacity_provider = "FARGATE"
-      weight            = 1
-      base              = 1
-    },
-    {
-      capacity_provider = "FARGATE_SPOT"
-      weight            = 0
+  default_capacity_provider_strategy = {
+    FARGATE = {
+        weight = 1
+        base   = 1
     }
-  ]
+    FARGATE_SPOT = {
+        weight = 0
+    }
+  }
+
 
   tags = {
     Name        = "${var.project_name}-${var.env_name}-ecs-cluster"
