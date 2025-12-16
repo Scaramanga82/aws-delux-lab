@@ -315,7 +315,7 @@ output "s3_frontend_bucket_arn" {
 # output "waf_web_acl_arn" {
 #   description = "WAF Web ACL ARN"
 #   value       = aws_wafv2_web_acl.cloudfront.arn
-}
+# }
 
 output "acm_certificate_arn" {
   description = "ACM certificate ARN for CloudFront"
