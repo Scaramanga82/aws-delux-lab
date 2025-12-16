@@ -5,7 +5,7 @@
 data "aws_acm_certificate" "cloudfront" {
   provider = aws.us_east_1
 
-  domain      = "*.dev.deluxblock.com"
+  domain      = "*.dev.kanazir.link"
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -18,7 +18,7 @@ module "cloudfront" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "6.0.2"
 
-  aliases = [var.frontend_domain]  # dev.deluxblock.com
+  aliases = [var.frontend_domain]  # dev.kanazir.link
 
   comment             = "${var.project_name} ${var.env_name} CDN"
   enabled             = true
