@@ -307,15 +307,15 @@ output "s3_frontend_bucket_arn" {
   value       = module.s3_frontend.s3_bucket_arn
 }
 
-# output "waf_web_acl_id" {
-#   description = "WAF Web ACL ID"
-#   value       = aws_wafv2_web_acl.cloudfront.id
-# }
+output "waf_web_acl_id" {
+  description = "WAF Web ACL ID"
+  value       = aws_wafv2_web_acl.cloudfront.id
+}
 
-# output "waf_web_acl_arn" {
-#   description = "WAF Web ACL ARN"
-#   value       = aws_wafv2_web_acl.cloudfront.arn
-# }
+output "waf_web_acl_arn" {
+  description = "WAF Web ACL ARN"
+  value       = aws_wafv2_web_acl.cloudfront.arn
+}
 
 output "acm_certificate_arn" {
   description = "ACM certificate ARN for CloudFront"

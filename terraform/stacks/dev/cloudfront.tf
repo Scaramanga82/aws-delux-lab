@@ -26,7 +26,7 @@ module "cloudfront" {
   price_class         = var.cloudfront_price_class
   http_version        = "http2and3"
   wait_for_deployment = false
-#   web_acl_id          = aws_wafv2_web_acl.cloudfront.arn
+  web_acl_id          = aws_wafv2_web_acl.cloudfront.arn
 
   # S3 Origin
   origin = {
