@@ -66,3 +66,21 @@ ecs_cpu              = 256
 ecs_memory           = 512
 ecs_desired_count    = 1
 ecs_image            = "220027435491.dkr.ecr.eu-west-2.amazonaws.com/kanazir-ecr:latest"
+
+##########################################################
+# Frontend Configuration
+##########################################################
+
+frontend_domain                      = "cdn.dev.kanazir.link"
+cloudfront_price_class               = "PriceClass_100"  # US, Canada, Europe
+cloudfront_geo_restriction_type      = "none"
+cloudfront_geo_restriction_locations = []
+cloudfront_log_retention_days        = 30  # Dev: 30 days
+
+##########################################################
+# WAF Configuration
+##########################################################
+
+waf_rate_limit         = 2000  # 2000 requests per 5 min per IP
+waf_blocked_countries  = []    # No blocking for dev
+waf_log_retention_days = 30

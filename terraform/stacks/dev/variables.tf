@@ -200,3 +200,59 @@ variable "ecs_image" {
   type        = string
   default     = "nginx:latest"
 }
+
+##########################################################
+# Frontend (CloudFront + S3) Variables
+##########################################################
+
+variable "frontend_domain" {
+  description = "Frontend domain name"
+  type        = string
+}
+
+variable "cloudfront_price_class" {
+  description = "CloudFront price class (PriceClass_100, PriceClass_200, PriceClass_All)"
+  type        = string
+  default     = "PriceClass_100"  # US, Canada, Europe
+}
+
+variable "cloudfront_geo_restriction_type" {
+  description = "Geo restriction type (none, whitelist, blacklist)"
+  type        = string
+  default     = "none"
+}
+
+variable "cloudfront_geo_restriction_locations" {
+  description = "List of country codes for geo restrictions (ISO 3166-1 alpha-2)"
+  type        = list(string)
+  default     = []
+}
+
+variable "cloudfront_log_retention_days" {
+  description = "CloudFront logs retention in days"
+  type        = number
+  default     = 90
+}
+
+##########################################################
+# WAF Variables
+##########################################################
+
+variable "waf_rate_limit" {
+  description = "WAF rate limit per IP (requests per 5 minutes)"
+  type        = number
+  default     = 2000
+}
+
+variable "waf_blocked_countries" {
+  description = "List of country codes to block (ISO 3166-1 alpha-2)"
+  type        = list(string)
+  default     = []
+  # Example: ["CN", "RU", "KP"]
+}
+
+variable "waf_log_retention_days" {
+  description = "WAF logs retention in days"
+  type        = number
+  default     = 90
+}
