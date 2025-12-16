@@ -2,12 +2,16 @@
 # Data Source - Existing ACM Certificate
 ##########################################################
 
-data "aws_acm_certificate" "cloudfront" {
-  provider = aws.us_east_1
+# ACM Certificate Data Source
+data "aws_acm_certificate" "dev" {
+  domain   = "dev.kanazir.link"
+  statuses = ["ISSUED"]
+}
 
-  domain      = "*.dev.kanazir.link"
-  statuses    = ["ISSUED"]
-  most_recent = true
+# Get Route53 Hosted Zone
+data "aws_route53_zone" "main" {
+  name         = "kanazir.link"
+  private_zone = false
 }
 
 ##########################################################
