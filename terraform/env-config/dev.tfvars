@@ -71,7 +71,7 @@ ecs_image            = "220027435491.dkr.ecr.eu-west-2.amazonaws.com/kanazir-ecr
 # Frontend Configuration
 ##########################################################
 
-frontend_domain                      = "cdn.dev.kanazir.link"
+frontend_domain                      = "app.dev.kanazir.link"
 cloudfront_price_class               = "PriceClass_100"  # US, Canada, Europe
 cloudfront_geo_restriction_type      = "none"
 cloudfront_geo_restriction_locations = []
