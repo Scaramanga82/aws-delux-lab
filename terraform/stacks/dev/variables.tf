@@ -235,7 +235,7 @@ variable "cloudfront_log_retention_days" {
 }
 
 ##########################################################
-# WAF Variables
+# Cloudfront WAF Variables
 ##########################################################
 
 variable "waf_rate_limit" {
@@ -253,6 +253,29 @@ variable "waf_blocked_countries" {
 
 variable "waf_log_retention_days" {
   description = "WAF logs retention in days"
+  type        = number
+  default     = 90
+}
+
+##########################################################
+# ALB WAF Variables
+##########################################################
+
+variable "alb_waf_rate_limit" {
+  description = "ALB WAF rate limit per IP (requests per 5 minutes)"
+  type        = number
+  default     = 2000
+}
+
+variable "alb_waf_blocked_countries" {
+  description = "List of country codes to block on ALB (ISO 3166-1 alpha-2)"
+  type        = list(string)
+  default     = []
+  # Example: ["CN", "RU", "KP"]
+}
+
+variable "alb_waf_log_retention_days" {
+  description = "ALB WAF logs retention in days"
   type        = number
   default     = 90
 }

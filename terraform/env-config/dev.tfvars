@@ -78,9 +78,17 @@ cloudfront_geo_restriction_locations = []
 cloudfront_log_retention_days        = 30  # Dev: 30 days
 
 ##########################################################
-# WAF Configuration
+# Cloudfront WAF Configuration
 ##########################################################
 
 waf_rate_limit         = 2000  # 2000 requests per 5 min per IP
 waf_blocked_countries  = []    # No blocking for dev
 waf_log_retention_days = 30
+
+##########################################################
+# ALB WAF Configuration
+##########################################################
+
+alb_waf_rate_limit         = 2000  # 2000 requests per 5 min per IP
+alb_waf_blocked_countries  = []    # No geo blocking for dev
+alb_waf_log_retention_days = 30    # 30 days for dev

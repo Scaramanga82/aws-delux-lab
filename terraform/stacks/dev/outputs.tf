@@ -307,6 +307,15 @@ output "s3_frontend_bucket_arn" {
   value       = module.s3_frontend.s3_bucket_arn
 }
 
+output "acm_certificate_arn" {
+  description = "ACM certificate ARN for CloudFront"
+  value       = data.aws_acm_certificate.cloudfront.arn
+}
+
+##########################################################
+# Cloudfront WAF Outputs
+##########################################################
+
 output "waf_web_acl_id" {
   description = "WAF Web ACL ID"
   value       = aws_wafv2_web_acl.cloudfront.id
@@ -317,7 +326,22 @@ output "waf_web_acl_arn" {
   value       = aws_wafv2_web_acl.cloudfront.arn
 }
 
-output "acm_certificate_arn" {
-  description = "ACM certificate ARN for CloudFront"
-  value       = data.aws_acm_certificate.cloudfront.arn
+
+##########################################################
+# ALB WAF Outputs
+##########################################################
+
+output "alb_waf_web_acl_id" {
+  description = "ALB WAF Web ACL ID"
+  value       = aws_wafv2_web_acl.alb.id
+}
+
+output "alb_waf_web_acl_arn" {
+  description = "ALB WAF Web ACL ARN"
+  value       = aws_wafv2_web_acl.alb.arn
+}
+
+output "alb_waf_capacity" {
+  description = "ALB WAF capacity units used"
+  value       = aws_wafv2_web_acl.alb.capacity
 }
