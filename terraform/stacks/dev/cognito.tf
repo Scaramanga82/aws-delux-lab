@@ -3,7 +3,6 @@
 ##########################################################
 
 locals {
-  cdn_domain  = var.domain_prefix != "" ? "cdn.${var.domain_prefix}.${var.domain_name}" : "cdn.${var.domain_name}"
   auth_domain = var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"
 }
 
@@ -97,12 +96,12 @@ module "cognito" {
       ]
 
       callback_urls = [
-        "https://${local.cdn_domain}/callback.html",
+        "https://cdn.dev.kanazir.link/callback.html",
         "http://localhost:3000/callback"
       ]
 
       logout_urls = [
-        "https://${local.cdn_domain}",
+        "https://cdn.dev.kanazir.link",
         "http://localhost:3000"
       ]
 
