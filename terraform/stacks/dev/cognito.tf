@@ -2,9 +2,9 @@
 # Cognito User Pool
 ##########################################################
 
-locals {
-  auth_domain = var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"
-}
+# locals {
+#   auth_domain = var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"
+# }
 
 module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
@@ -130,7 +130,7 @@ module "cognito" {
 ##########################################################
 
 resource "aws_cognito_user_pool_domain" "custom" {
-  domain          = local.auth_domain
+  domain          = "auth.dev.kanazir.link"
   certificate_arn = "arn:aws:acm:us-east-1:220027435491:certificate/38cd5bcd-5dd1-4aa5-a3f1-d09d2381f871"
   user_pool_id    = module.cognito.id
 
@@ -147,7 +147,7 @@ data "aws_route53_zone" "main" {
 }
 
 resource "aws_route53_record" "auth" {
-  name    = local.auth_domain
+  name    = "auth.dev.kanazir.link"
   type    = "A"
   zone_id = data.aws_route53_zone.main.zone_id
 
