@@ -127,17 +127,6 @@ module "cognito" {
 }
 
 ##########################################################
-# Cognito Domain (Prefix - za development/testiranje)
-##########################################################
-
-resource "aws_cognito_user_pool_domain" "prefix" {
-  domain       = "${var.project_name}-${var.env_name}"
-  user_pool_id = module.cognito.id
-
-  depends_on = [module.cognito]
-}
-
-##########################################################
 # Cognito Custom Domain
 ##########################################################
 

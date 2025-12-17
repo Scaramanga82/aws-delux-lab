@@ -27,11 +27,6 @@ output "cognito_client_id" {
 # Cognito Domain Outputs
 ##########################################################
 
-output "cognito_domain_prefix" {
-  description = "Cognito domain prefix (for testing)"
-  value       = "https://${aws_cognito_user_pool_domain.prefix.domain}.auth.${var.aws_region}.amazoncognito.com"
-}
-
 output "cognito_domain_custom" {
   description = "Cognito custom domain"
   value       = "https://${aws_cognito_user_pool_domain.custom.domain}"
