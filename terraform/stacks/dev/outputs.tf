@@ -278,70 +278,70 @@ output "ecs_cluster_arn" {
 #   value = aws_cloudwatch_log_group.ecs_app.name
 # }
 
-##########################################################
-# Frontend Outputs
-##########################################################
+# ##########################################################
+# # Frontend Outputs
+# ##########################################################
 
-output "cloudfront_distribution_id" {
-  description = "CloudFront distribution ID"
-  value       = module.cloudfront.cloudfront_distribution_id
-}
+# output "cloudfront_distribution_id" {
+#   description = "CloudFront distribution ID"
+#   value       = module.cloudfront.cloudfront_distribution_id
+# }
 
-output "cloudfront_distribution_domain" {
-  description = "CloudFront distribution domain name"
-  value       = module.cloudfront.cloudfront_distribution_domain_name
-}
+# output "cloudfront_distribution_domain" {
+#   description = "CloudFront distribution domain name"
+#   value       = module.cloudfront.cloudfront_distribution_domain_name
+# }
 
-output "frontend_url" {
-  description = "Frontend URL"
-  value       = "https://${var.frontend_domain}"
-}
+# output "frontend_url" {
+#   description = "Frontend URL"
+#   value       = "https://${var.frontend_domain}"
+# }
 
-output "s3_frontend_bucket" {
-  description = "S3 frontend bucket name"
-  value       = module.s3_frontend.s3_bucket_id
-}
+# output "s3_frontend_bucket" {
+#   description = "S3 frontend bucket name"
+#   value       = module.s3_frontend.s3_bucket_id
+# }
 
-output "s3_frontend_bucket_arn" {
-  description = "S3 frontend bucket ARN"
-  value       = module.s3_frontend.s3_bucket_arn
-}
+# output "s3_frontend_bucket_arn" {
+#   description = "S3 frontend bucket ARN"
+#   value       = module.s3_frontend.s3_bucket_arn
+# }
 
-output "acm_certificate_arn" {
-  description = "ACM certificate ARN for CloudFront"
-  value       = data.aws_acm_certificate.cloudfront.arn
-}
+# output "acm_certificate_arn" {
+#   description = "ACM certificate ARN for CloudFront"
+#   value       = data.aws_acm_certificate.cloudfront.arn
+# }
 
-##########################################################
-# Cloudfront WAF Outputs
-##########################################################
+# ##########################################################
+# # Cloudfront WAF Outputs
+# ##########################################################
 
-output "waf_web_acl_id" {
-  description = "WAF Web ACL ID"
-  value       = aws_wafv2_web_acl.cloudfront.id
-}
+# output "waf_web_acl_id" {
+#   description = "WAF Web ACL ID"
+#   value       = aws_wafv2_web_acl.cloudfront.id
+# }
 
-output "waf_web_acl_arn" {
-  description = "WAF Web ACL ARN"
-  value       = aws_wafv2_web_acl.cloudfront.arn
-}
+# output "waf_web_acl_arn" {
+#   description = "WAF Web ACL ARN"
+#   value       = aws_wafv2_web_acl.cloudfront.arn
+# }
 
 
-##########################################################
-# ALB WAF Outputs
-##########################################################
+# ##########################################################
+# # ALB WAF Outputs
+# ##########################################################
 
-output "alb_waf_web_acl_id" {
-  description = "ALB WAF Web ACL ID"
-  value       = aws_wafv2_web_acl.alb.id
-}
+# output "alb_waf_web_acl_id" {
+#   description = "ALB WAF Web ACL ID"
+#   value       = aws_wafv2_web_acl.alb.id
+# }
 
-output "alb_waf_web_acl_arn" {
-  description = "ALB WAF Web ACL ARN"
-  value       = aws_wafv2_web_acl.alb.arn
-}
+# output "alb_waf_web_acl_arn" {
+#   description = "ALB WAF Web ACL ARN"
+#   value       = aws_wafv2_web_acl.alb.arn
+# }
 
-output "alb_waf_capacity" {
-  description = "ALB WAF capacity units used"
-  value       = aws_wafv2_web_acl.alb.capacity
-}
+# output "alb_waf_capacity" {
+#   description = "ALB WAF capacity units used"
+#   value       = aws_wafv2_web_acl.alb.capacity
+# }
