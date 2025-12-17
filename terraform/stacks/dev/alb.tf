@@ -8,12 +8,6 @@ data "aws_acm_certificate" "dev" {
   statuses = ["ISSUED"]
 }
 
-# Get Route53 Hosted Zone
-data "aws_route53_zone" "main" {
-  name         = "kanazir.link"
-  private_zone = false
-}
-
 ##########################################################
 # Application Load Balancer + Target Groups
 ##########################################################
