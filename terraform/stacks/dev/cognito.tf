@@ -2,10 +2,6 @@
 # Cognito User Pool
 ##########################################################
 
-# locals {
-#   auth_domain = var.domain_prefix != "" ? "auth.${var.domain_prefix}.${var.domain_name}" : "auth.${var.domain_name}"
-# }
-
 module "cognito" {
   source  = "lgallard/cognito-user-pool/aws"
   version = "4.0.0"

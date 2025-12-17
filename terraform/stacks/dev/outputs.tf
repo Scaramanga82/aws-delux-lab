@@ -38,20 +38,6 @@ output "cognito_domain_cloudfront" {
 }
 
 ##########################################################
-# Application URLs
-##########################################################
-
-# output "auth_url" {
-#   description = "Cognito Hosted UI URL"
-#   value       = "https://${local.auth_domain}"
-# }
-
-# output "cdn_url" {
-#   description = "CDN URL (CloudFront - to be configured)"
-#   value       = "https://${local.cdn_domain}"
-# }
-
-##########################################################
 # VPC Outputs
 ##########################################################
 

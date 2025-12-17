@@ -23,12 +23,6 @@ variable "domain_name" {
   type        = string
 }
 
-variable "domain_prefix" {
-  description = "Domain prefix for environment (dev/stage/prod uses empty string)"
-  type        = string
-  default     = ""
-}
-
 ##########################################################
 # Cognito variables
 ##########################################################
