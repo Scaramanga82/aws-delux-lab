@@ -160,24 +160,24 @@ output "aurora_connection_string" {
 #   value       = "https://api.dev.kanazir.link"
 # }
 
-##########################################################
-# ECS Cluster Outputs
-##########################################################
+# ##########################################################
+# # ECS Cluster Outputs
+# ##########################################################
 
-output "ecs_cluster_id" {
-  description = "ID of the ECS cluster"
-  value       = module.ecs_cluster.cluster_id
-}
+# output "ecs_cluster_id" {
+#   description = "ID of the ECS cluster"
+#   value       = module.ecs_cluster.cluster_id
+# }
 
-output "ecs_cluster_name" {
-  description = "Name of the ECS cluster"
-  value       = module.ecs_cluster.cluster_name
-}
+# output "ecs_cluster_name" {
+#   description = "Name of the ECS cluster"
+#   value       = module.ecs_cluster.cluster_name
+# }
 
-output "ecs_cluster_arn" {
-  description = "ARN of the ECS cluster"
-  value       = module.ecs_cluster.cluster_arn
-}
+# output "ecs_cluster_arn" {
+#   description = "ARN of the ECS cluster"
+#   value       = module.ecs_cluster.cluster_arn
+# }
 
 # #########################################################
 # #ECS Task Definition Outputs
