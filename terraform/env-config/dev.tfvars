@@ -96,9 +96,9 @@ alb_waf_log_retention_days = 30    # 30 days for dev
 # SQS Configuration
 ##########################################################
 
-sqs_visibility_timeout = 60
+sqs_visibility_timeout = 120
 sqs_message_retention  = 345600  # 4 days
-sqs_receive_wait_time  = 10
+sqs_receive_wait_time  = 20
 sqs_delay_seconds      = 0
 sqs_max_message_size   = 262144  # 256 KB
 sqs_max_receive_count  = 5

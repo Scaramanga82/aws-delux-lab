@@ -15,10 +15,10 @@ module "sqs_main" {
   max_message_size           = var.sqs_max_message_size
 
   # Dead Letter Queue configuration
-  redrive_policy = jsonencode({
+  redrive_policy = {
     deadLetterTargetArn = module.sqs_dlq.queue_arn
     maxReceiveCount     = var.sqs_max_receive_count
-  })
+  }
 
   # Encryption
   sqs_managed_sse_enabled = var.sqs_encryption_enabled
