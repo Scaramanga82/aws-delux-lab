@@ -1,127 +1,127 @@
-##########################################################
-# Data
-##########################################################
+# ##########################################################
+# # Data
+# ##########################################################
 
-data "aws_region" "current" {}
+# data "aws_region" "current" {}
 
-##########################################################
-# CloudWatch Log Group
-##########################################################
+# ##########################################################
+# # CloudWatch Log Group
+# ##########################################################
 
-resource "aws_cloudwatch_log_group" "ecs_app" {
-  name              = "/aws/ecs/${var.project_name}-${var.env_name}-app/${var.project_name}"
-  retention_in_days = 7
+# resource "aws_cloudwatch_log_group" "ecs_app" {
+#   name              = "/aws/ecs/${var.project_name}-${var.env_name}-app/${var.project_name}"
+#   retention_in_days = 7
 
-  tags = {
-    Name        = "${var.project_name}-${var.env_name}-ecs-app-logs"
-    Project     = var.project_name
-    Environment = var.env_name
-    ManagedBy   = "Terraform"
-  }
-}
+#   tags = {
+#     Name        = "${var.project_name}-${var.env_name}-ecs-app-logs"
+#     Project     = var.project_name
+#     Environment = var.env_name
+#     ManagedBy   = "Terraform"
+#   }
+# }
 
-##########################################################
-# ECS Task Definition
-##########################################################
+# ##########################################################
+# # ECS Task Definition
+# ##########################################################
 
-resource "aws_ecs_task_definition" "app" {
-  family                   = "${var.project_name}-${var.env_name}-app"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
+# resource "aws_ecs_task_definition" "app" {
+#   family                   = "${var.project_name}-${var.env_name}-app"
+#   network_mode             = "awsvpc"
+#   requires_compatibilities = ["FARGATE"]
 
-  cpu    = tostring(var.ecs_cpu)
-  memory = tostring(var.ecs_memory)
+#   cpu    = tostring(var.ecs_cpu)
+#   memory = tostring(var.ecs_memory)
 
-  execution_role_arn = aws_iam_role.ecs_task_execution.arn
-  task_role_arn      = aws_iam_role.ecs_task_app.arn
+#   execution_role_arn = aws_iam_role.ecs_task_execution.arn
+#   task_role_arn      = aws_iam_role.ecs_task_app.arn
 
-  depends_on = [
-    aws_cloudwatch_log_group.ecs_app
-  ]
+#   depends_on = [
+#     aws_cloudwatch_log_group.ecs_app
+#   ]
 
-  container_definitions = jsonencode([
-    {
-      name      = var.project_name
-      image     = var.ecs_image
-      essential = true
+#   container_definitions = jsonencode([
+#     {
+#       name      = var.project_name
+#       image     = var.ecs_image
+#       essential = true
 
-      cpu    = var.ecs_cpu
-      memory = var.ecs_memory
+#       cpu    = var.ecs_cpu
+#       memory = var.ecs_memory
 
-      portMappings = [
-        {
-          containerPort = var.ecs_container_port
-          protocol      = "tcp"
-        }
-      ]
+#       portMappings = [
+#         {
+#           containerPort = var.ecs_container_port
+#           protocol      = "tcp"
+#         }
+#       ]
 
-      environment = [
-        {
-          name  = "ENVIRONMENT"
-          value = var.env_name
-        },
-        {
-          name  = "PORT"
-          value = tostring(var.ecs_container_port)
-        }
-      ]
+#       environment = [
+#         {
+#           name  = "ENVIRONMENT"
+#           value = var.env_name
+#         },
+#         {
+#           name  = "PORT"
+#           value = tostring(var.ecs_container_port)
+#         }
+#       ]
 
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          awslogs-group         = aws_cloudwatch_log_group.ecs_app.name
-          awslogs-region        = data.aws_region.current.id
-          awslogs-stream-prefix = "ecs"
-        }
-      }
+#       logConfiguration = {
+#         logDriver = "awslogs"
+#         options = {
+#           awslogs-group         = aws_cloudwatch_log_group.ecs_app.name
+#           awslogs-region        = data.aws_region.current.id
+#           awslogs-stream-prefix = "ecs"
+#         }
+#       }
 
-      readonlyRootFilesystem = false
-    }
-  ])
+#       readonlyRootFilesystem = false
+#     }
+#   ])
 
-  tags = {
-    Name        = "${var.project_name}-${var.env_name}-ecs-task"
-    Project     = var.project_name
-    Environment = var.env_name
-    ManagedBy   = "Terraform"
-  }
-}
+#   tags = {
+#     Name        = "${var.project_name}-${var.env_name}-ecs-task"
+#     Project     = var.project_name
+#     Environment = var.env_name
+#     ManagedBy   = "Terraform"
+#   }
+# }
 
-##########################################################
-# ECS Service
-##########################################################
+# ##########################################################
+# # ECS Service
+# ##########################################################
 
-resource "aws_ecs_service" "app" {
-  name            = "${var.project_name}-${var.env_name}-app"
-  cluster         = module.ecs_cluster.cluster_arn
-  task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.ecs_desired_count
-  launch_type     = "FARGATE"
+# resource "aws_ecs_service" "app" {
+#   name            = "${var.project_name}-${var.env_name}-app"
+#   cluster         = module.ecs_cluster.cluster_arn
+#   task_definition = aws_ecs_task_definition.app.arn
+#   desired_count   = var.ecs_desired_count
+#   launch_type     = "FARGATE"
 
-  network_configuration {
-    subnets         = module.vpc.private_subnets
-    security_groups = [aws_security_group.ecs_tasks.id]
-    assign_public_ip = false
-  }
+#   network_configuration {
+#     subnets         = module.vpc.private_subnets
+#     security_groups = [aws_security_group.ecs_tasks.id]
+#     assign_public_ip = false
+#   }
 
-  load_balancer {
-    target_group_arn = module.alb.target_groups["ecs"].arn
-    container_name   = var.project_name
-    container_port   = var.ecs_container_port
-  }
+#   load_balancer {
+#     target_group_arn = module.alb.target_groups["ecs"].arn
+#     container_name   = var.project_name
+#     container_port   = var.ecs_container_port
+#   }
 
-  deployment_minimum_healthy_percent = 50
-  deployment_maximum_percent         = 200
+#   deployment_minimum_healthy_percent = 50
+#   deployment_maximum_percent         = 200
 
-  force_new_deployment  = true
-  wait_for_steady_state = false
+#   force_new_deployment  = true
+#   wait_for_steady_state = false
 
-  enable_ecs_managed_tags = true
+#   enable_ecs_managed_tags = true
 
-  tags = {
-    Name        = "${var.project_name}-${var.env_name}-ecs-service"
-    Project     = var.project_name
-    Environment = var.env_name
-    ManagedBy   = "Terraform"
-  }
-}
+#   tags = {
+#     Name        = "${var.project_name}-${var.env_name}-ecs-service"
+#     Project     = var.project_name
+#     Environment = var.env_name
+#     ManagedBy   = "Terraform"
+#   }
+# }
