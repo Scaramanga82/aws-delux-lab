@@ -1,41 +1,41 @@
-##########################################################
-# Cognito User Pool Outputs
-##########################################################
+# ##########################################################
+# # Cognito User Pool Outputs
+# ##########################################################
 
-output "cognito_user_pool_id" {
-  description = "Cognito User Pool ID"
-  value       = module.cognito.id
-}
+# output "cognito_user_pool_id" {
+#   description = "Cognito User Pool ID"
+#   value       = module.cognito.id
+# }
 
-output "cognito_user_pool_arn" {
-  description = "Cognito User Pool ARN"
-  value       = module.cognito.arn
-}
+# output "cognito_user_pool_arn" {
+#   description = "Cognito User Pool ARN"
+#   value       = module.cognito.arn
+# }
 
-output "cognito_user_pool_endpoint" {
-  description = "Cognito User Pool endpoint"
-  value       = module.cognito.endpoint
-}
+# output "cognito_user_pool_endpoint" {
+#   description = "Cognito User Pool endpoint"
+#   value       = module.cognito.endpoint
+# }
 
-output "cognito_client_id" {
-  description = "Cognito App Client ID"
-  value       = module.cognito.client_ids[0]
-  sensitive   = true
-}
+# output "cognito_client_id" {
+#   description = "Cognito App Client ID"
+#   value       = module.cognito.client_ids[0]
+#   sensitive   = true
+# }
 
-##########################################################
-# Cognito Domain Outputs
-##########################################################
+# ##########################################################
+# # Cognito Domain Outputs
+# ##########################################################
 
-output "cognito_domain_custom" {
-  description = "Cognito custom domain"
-  value       = "https://${aws_cognito_user_pool_domain.custom.domain}"
-}
+# output "cognito_domain_custom" {
+#   description = "Cognito custom domain"
+#   value       = "https://${aws_cognito_user_pool_domain.custom.domain}"
+# }
 
-output "cognito_domain_cloudfront" {
-  description = "CloudFront distribution for custom domain"
-  value       = aws_cognito_user_pool_domain.custom.cloudfront_distribution
-}
+# output "cognito_domain_cloudfront" {
+#   description = "CloudFront distribution for custom domain"
+#   value       = aws_cognito_user_pool_domain.custom.cloudfront_distribution
+# }
 
 ##########################################################
 # VPC Outputs
