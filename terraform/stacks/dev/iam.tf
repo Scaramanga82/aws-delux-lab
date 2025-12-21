@@ -124,41 +124,41 @@ resource "aws_iam_role_policy" "ecs_task_app_secrets" {
   })
 }
 
-# Application can access SQS
-resource "aws_iam_role_policy" "ecs_task_app_sqs" {
-  name = "${var.project_name}-${var.env_name}-ecs-task-app-sqs-access"
-  role = aws_iam_role.ecs_task_app.id
+# # Application can access SQS
+# resource "aws_iam_role_policy" "ecs_task_app_sqs" {
+#   name = "${var.project_name}-${var.env_name}-ecs-task-app-sqs-access"
+#   role = aws_iam_role.ecs_task_app.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "sqs:SendMessage",
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes",
-          "sqs:GetQueueUrl",
-          "sqs:ChangeMessageVisibility"
-        ]
-        Resource = [
-          module.sqs_main.queue_arn
-        ]
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "sqs:GetQueueAttributes",
-          "sqs:GetQueueUrl"
-        ]
-        Resource = [
-          module.sqs_dlq.queue_arn
-        ]
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Action = [
+#           "sqs:SendMessage",
+#           "sqs:ReceiveMessage",
+#           "sqs:DeleteMessage",
+#           "sqs:GetQueueAttributes",
+#           "sqs:GetQueueUrl",
+#           "sqs:ChangeMessageVisibility"
+#         ]
+#         Resource = [
+#           module.sqs_main.queue_arn
+#         ]
+#       },
+#       {
+#         Effect = "Allow"
+#         Action = [
+#           "sqs:GetQueueAttributes",
+#           "sqs:GetQueueUrl"
+#         ]
+#         Resource = [
+#           module.sqs_dlq.queue_arn
+#         ]
+#       }
+#     ]
+#   })
+# }
 
 # Output - ecs task execution role arn
 output "ecs_task_execution_role_arn" {
