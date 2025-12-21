@@ -19,16 +19,16 @@ resource "aws_security_group" "aurora_postgresql_sg" {
   }
 }
 
-# Ingress - from ECS tasks
-resource "aws_vpc_security_group_ingress_rule" "rds_from_ecs" {
-  security_group_id = aws_security_group.aurora_postgresql_sg.id
-  description       = "Allow PostgreSQL from ECS tasks"
+# # Ingress - from ECS tasks
+# resource "aws_vpc_security_group_ingress_rule" "rds_from_ecs" {
+#   security_group_id = aws_security_group.aurora_postgresql_sg.id
+#   description       = "Allow PostgreSQL from ECS tasks"
 
-  from_port                    = 5432
-  to_port                      = 5432
-  ip_protocol                  = "tcp"
-  referenced_security_group_id = aws_security_group.ecs_tasks.id
-}
+#   from_port                    = 5432
+#   to_port                      = 5432
+#   ip_protocol                  = "tcp"
+#   referenced_security_group_id = aws_security_group.ecs_tasks.id
+# }
 
 # Output - aurora postgresql sg id
 output "aurora_postgresql_sg_id" {
