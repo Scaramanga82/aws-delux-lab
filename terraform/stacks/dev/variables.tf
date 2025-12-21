@@ -273,3 +273,69 @@ variable "alb_waf_log_retention_days" {
   type        = number
   default     = 90
 }
+
+##########################################################
+# SQS Variables
+##########################################################
+
+variable "sqs_visibility_timeout" {
+  description = "Visibility timeout for SQS messages in seconds"
+  type        = number
+  default     = 60
+}
+
+variable "sqs_message_retention" {
+  description = "Message retention period in seconds (max 14 days)"
+  type        = number
+  default     = 345600 # 4 days
+}
+
+variable "sqs_receive_wait_time" {
+  description = "Long polling wait time in seconds"
+  type        = number
+  default     = 10
+}
+
+variable "sqs_delay_seconds" {
+  description = "Delay before message becomes available"
+  type        = number
+  default     = 0
+}
+
+variable "sqs_max_message_size" {
+  description = "Maximum message size in bytes"
+  type        = number
+  default     = 262144 # 256 KB
+}
+
+variable "sqs_max_receive_count" {
+  description = "Max receives before sending to DLQ"
+  type        = number
+  default     = 5
+}
+
+variable "sqs_dlq_retention" {
+  description = "DLQ message retention in seconds (14 days)"
+  type        = number
+  default     = 1209600
+}
+
+variable "sqs_encryption_enabled" {
+  description = "Enable SQS encryption"
+  type        = bool
+  default     = true
+}
+
+# Optional: custom KMS key
+# variable "kms_key_id" {
+#   description = "KMS key ID for SQS encryption"
+#   type        = string
+#   default     = null
+# }
+
+# Optional: SNS notifikacije
+# variable "sns_topic_arn" {
+#   description = "SNS topic ARN for alarms"
+#   type        = string
+#   default     = null
+# }

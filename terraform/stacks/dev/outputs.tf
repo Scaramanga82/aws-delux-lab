@@ -266,3 +266,47 @@ output "ecs_cluster_arn" {
 #   description = "ALB WAF capacity units used"
 #   value       = aws_wafv2_web_acl.alb.capacity
 # }
+
+# ##########################################################
+# SQS Outputs
+# ##########################################################
+
+output "sqs_main_queue_id" {
+  description = "ID of the main SQS queue"
+  value       = module.sqs_main.queue_id
+}
+
+output "sqs_main_queue_arn" {
+  description = "ARN of the main SQS queue"
+  value       = module.sqs_main.queue_arn
+}
+
+output "sqs_main_queue_url" {
+  description = "URL of the main SQS queue"
+  value       = module.sqs_main.queue_url
+}
+
+output "sqs_main_queue_name" {
+  description = "Name of the main SQS queue"
+  value       = module.sqs_main.queue_name
+}
+
+output "sqs_dlq_queue_id" {
+  description = "ID of the DLQ"
+  value       = module.sqs_dlq.queue_id
+}
+
+output "sqs_dlq_queue_arn" {
+  description = "ARN of the DLQ"
+  value       = module.sqs_dlq.queue_arn
+}
+
+output "sqs_dlq_queue_url" {
+  description = "URL of the DLQ"
+  value       = module.sqs_dlq.queue_url
+}
+
+output "sqs_dlq_queue_name" {
+  description = "Name of the DLQ"
+  value       = module.sqs_dlq.queue_name
+}

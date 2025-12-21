@@ -91,3 +91,19 @@ waf_log_retention_days = 30
 alb_waf_rate_limit         = 2000  # 2000 requests per 5 min per IP
 alb_waf_blocked_countries  = []    # No geo blocking for dev
 alb_waf_log_retention_days = 30    # 30 days for dev
+
+##########################################################
+# SQS Configuration
+##########################################################
+
+sqs_visibility_timeout = 60
+sqs_message_retention  = 345600  # 4 days
+sqs_receive_wait_time  = 10
+sqs_delay_seconds      = 0
+sqs_max_message_size   = 262144  # 256 KB
+sqs_max_receive_count  = 5
+sqs_dlq_retention      = 1209600 # 14 days
+sqs_encryption_enabled = true
+
+# Optional: SNS topic za alarme
+# sns_topic_arn = "arn:aws:sns:us-east-1:123456789:alerts"
