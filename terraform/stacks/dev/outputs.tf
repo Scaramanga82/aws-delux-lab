@@ -131,34 +131,34 @@ output "aurora_connection_string" {
   sensitive = true
 }
 
-##########################################################
-# Application Load Balancer Outputs
-##########################################################
+# ##########################################################
+# # Application Load Balancer Outputs
+# ##########################################################
 
-output "alb_dns_name" {
-  description = "DNS name of the load balancer"
-  value       = module.alb.dns_name
-}
+# output "alb_dns_name" {
+#   description = "DNS name of the load balancer"
+#   value       = module.alb.dns_name
+# }
 
-output "alb_zone_id" {
-  description = "Zone ID of the load balancer"
-  value       = module.alb.zone_id
-}
+# output "alb_zone_id" {
+#   description = "Zone ID of the load balancer"
+#   value       = module.alb.zone_id
+# }
 
-output "alb_arn" {
-  description = "ARN of the load balancer"
-  value       = module.alb.arn
-}
+# output "alb_arn" {
+#   description = "ARN of the load balancer"
+#   value       = module.alb.arn
+# }
 
-output "target_group_arn" {
-  description = "ARN of the target group"
-  value       = module.alb.target_groups["ecs"].arn
-}
+# output "target_group_arn" {
+#   description = "ARN of the target group"
+#   value       = module.alb.target_groups["ecs"].arn
+# }
 
-output "api_url" {
-  description = "API URL"
-  value       = "https://api.dev.kanazir.link"
-}
+# output "api_url" {
+#   description = "API URL"
+#   value       = "https://api.dev.kanazir.link"
+# }
 
 ##########################################################
 # ECS Cluster Outputs
