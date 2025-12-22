@@ -1,23 +1,23 @@
-##########################################################
-# Security Group - Aurora PostgreSQL
-##########################################################
+# ##########################################################
+# # Security Group - Aurora PostgreSQL
+# ##########################################################
 
-resource "aws_security_group" "aurora_postgresql_sg" {
-  name        = "${var.project_name}-${var.env_name}-aurora-postgresql-sg"
-  description = "Security group for Aurora PostgreSQL"
-  vpc_id      = module.vpc.vpc_id
+# resource "aws_security_group" "aurora_postgresql_sg" {
+#   name        = "${var.project_name}-${var.env_name}-aurora-postgresql-sg"
+#   description = "Security group for Aurora PostgreSQL"
+#   vpc_id      = module.vpc.vpc_id
 
-  tags = {
-    Name        = "${var.project_name}-${var.env_name}-aurora-postgresql-sg"
-    Project     = var.project_name
-    Environment = var.env_name
-    ManagedBy   = "Terraform"
-  }
+#   tags = {
+#     Name        = "${var.project_name}-${var.env_name}-aurora-postgresql-sg"
+#     Project     = var.project_name
+#     Environment = var.env_name
+#     ManagedBy   = "Terraform"
+#   }
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
 # # Ingress - from ECS tasks
 # resource "aws_vpc_security_group_ingress_rule" "rds_from_ecs" {
@@ -30,11 +30,11 @@ resource "aws_security_group" "aurora_postgresql_sg" {
 #   referenced_security_group_id = aws_security_group.ecs_tasks.id
 # }
 
-# Output - aurora postgresql sg id
-output "aurora_postgresql_sg_id" {
-  description = "ID of Aurora PostgreSQL security group"
-  value       = aws_security_group.aurora_postgresql_sg.id
-}
+# # Output - aurora postgresql sg id
+# output "aurora_postgresql_sg_id" {
+#   description = "ID of Aurora PostgreSQL security group"
+#   value       = aws_security_group.aurora_postgresql_sg.id
+# }
 
 # ##########################################################
 # # Security Group - Application Load Balancer
