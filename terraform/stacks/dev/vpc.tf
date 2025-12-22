@@ -1,67 +1,67 @@
-##########################################################
-# VPC
-##########################################################
+# ##########################################################
+# # VPC
+# ##########################################################
 
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "6.5.1"
+# module "vpc" {
+#   source  = "terraform-aws-modules/vpc/aws"
+#   version = "6.5.1"
 
-  name = "${var.project_name}-${var.env_name}-vpc"
-  cidr = var.vpc_cidr
+#   name = "${var.project_name}-${var.env_name}-vpc"
+#   cidr = var.vpc_cidr
 
-  azs             = var.availability_zones
-  private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
+#   azs             = var.availability_zones
+#   private_subnets = var.private_subnets
+#   public_subnets  = var.public_subnets
 
-  public_subnet_names = [
-    for az in var.availability_zones :
-    "${var.project_name}-${var.env_name}-public-subnet-${az}"
-  ]
+#   public_subnet_names = [
+#     for az in var.availability_zones :
+#     "${var.project_name}-${var.env_name}-public-subnet-${az}"
+#   ]
 
-  private_subnet_names = [
-    for az in var.availability_zones :
-    "${var.project_name}-${var.env_name}-private-subnet-${az}"
-  ]
+#   private_subnet_names = [
+#     for az in var.availability_zones :
+#     "${var.project_name}-${var.env_name}-private-subnet-${az}"
+#   ]
 
-  enable_nat_gateway   = var.enable_nat_gateway
-  single_nat_gateway   = var.single_nat_gateway
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support   = var.enable_dns_support
+#   enable_nat_gateway   = var.enable_nat_gateway
+#   single_nat_gateway   = var.single_nat_gateway
+#   enable_dns_hostnames = var.enable_dns_hostnames
+#   enable_dns_support   = var.enable_dns_support
 
-  enable_flow_log                      = false
-  create_flow_log_cloudwatch_iam_role  = false
-  create_flow_log_cloudwatch_log_group = false
+#   enable_flow_log                      = false
+#   create_flow_log_cloudwatch_iam_role  = false
+#   create_flow_log_cloudwatch_log_group = false
 
-  tags = merge(
-    {
-      Environment = var.env_name
-      Project     = var.project_name
-      ManagedBy   = "Terraform"
-    }
-  )
+#   tags = merge(
+#     {
+#       Environment = var.env_name
+#       Project     = var.project_name
+#       ManagedBy   = "Terraform"
+#     }
+#   )
 
-  vpc_tags = {
-    Name = "${var.project_name}-${var.env_name}-vpc"
-  }
+#   vpc_tags = {
+#     Name = "${var.project_name}-${var.env_name}-vpc"
+#   }
 
-  igw_tags = {
-    Name = "${var.project_name}-${var.env_name}-igw"
-  }
+#   igw_tags = {
+#     Name = "${var.project_name}-${var.env_name}-igw"
+#   }
 
-  nat_gateway_tags = {
-    Name = "${var.project_name}-${var.env_name}-nat"
-  }
+#   nat_gateway_tags = {
+#     Name = "${var.project_name}-${var.env_name}-nat"
+#   }
 
-  default_route_table_tags = {
-    Name = "${var.project_name}-${var.env_name}-main-rt"
-  }
+#   default_route_table_tags = {
+#     Name = "${var.project_name}-${var.env_name}-main-rt"
+#   }
 
-  public_route_table_tags = {
-    Name = "${var.project_name}-${var.env_name}-public-rt"
-  }
+#   public_route_table_tags = {
+#     Name = "${var.project_name}-${var.env_name}-public-rt"
+#   }
 
-  private_route_table_tags = {
-    Name = "${var.project_name}-${var.env_name}-private-rt"
-  }
+#   private_route_table_tags = {
+#     Name = "${var.project_name}-${var.env_name}-private-rt"
+#   }
 
-}
+# }
