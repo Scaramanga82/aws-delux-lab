@@ -1,0 +1,60 @@
+name: Rollback Frontend
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Release version"
+        required: true
+
+env:
+  AWS_REGION: eu-west-2
+
+jobs:
+  rollback:
+    name: Rollback frontend release
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------------
+      # AWS auth
+      # ---------------------------------------
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # ---------------------------------------
+      # Fail-fast: Verify release exists
+      # ---------------------------------------
+      - name: Verify release exists
+        run: |
+          aws s3 ls s3://${{ secrets.RELEASES_BUCKET }}/${{ inputs.release }}/index.html
+
+      # ---------------------------------------
+      # Show release metadata
+      # ---------------------------------------
+      - name: Show release metadata
+        run: |
+          aws s3 cp s3://${{ secrets.RELEASES_BUCKET }}/${{ inputs.release }}/release.json -
+
+      # ---------------------------------------
+      # Rollback to selected release
+      # ---------------------------------------
+      - name: Sync selected release to S3
+        run: |
+          aws s3 sync \
+            s3://${{ secrets.RELEASES_BUCKET }}/${{ inputs.release }}/ \
+            s3://${{ secrets.S3_BUCKET_NAME }}/ \
+            --delete
+
+      # ---------------------------------------
+      # CloudFront invalidation
+      # ---------------------------------------
+      - name: Invalidate CloudFront (index.html only)
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/index.html"
